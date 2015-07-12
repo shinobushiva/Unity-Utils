@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Shiva.CameraSwitch;
 
 public class CameraZoomTrans : MonoBehaviour
 {

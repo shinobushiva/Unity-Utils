@@ -18,5 +18,8 @@
     "test",
     "tests"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "CameraSwitcher": "shinobushiva/Unity-CameraSwitcher"
+  }
 }
