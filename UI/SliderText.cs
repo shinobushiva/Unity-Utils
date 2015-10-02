@@ -11,7 +11,7 @@ public class SliderText : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		valueText.text = "" + GetComponent<Slider> ().value;
+			valueText.text = "" + GetComponent<Slider> ().value;
 	}
 	
 	// Update is called once per frame
