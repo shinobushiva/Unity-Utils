@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Shiva.CameraSwitch;
+using UnityStandardAssets.Utility;
 
 public class MouseCameraMove : MonoBehaviour {
 
@@ -14,21 +15,21 @@ public class MouseCameraMove : MonoBehaviour {
 	void Start(){
 		switchCamera = GetComponent<SwitchableCamera>();
 		follow = GetComponent<SmoothFollow>();
-		damping = follow.rotationDamping;
+//		damping = follow.rotationDamping;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		
 		if(!SystemWide.Instance.CanCameraGetMouseInput()){
-			follow.rotationDamping = damping;
+//			follow.rotationDamping = damping;
 			return;
 		}
 
 		if(Input.GetMouseButtonDown(0)){
 			mPos = Input.mousePosition;
-			damping = follow.rotationDamping;
-			follow.rotationDamping =  100f;
+//			damping = follow.rotationDamping;
+//			follow.rotationDamping =  100f;
 		}
 
 		if(Input.GetMouseButton(0)){
@@ -38,7 +39,7 @@ public class MouseCameraMove : MonoBehaviour {
 		}
 
 		if(Input.GetMouseButtonUp(0)){
-			follow.rotationDamping = damping;
+//			follow.rotationDamping = damping;
 		}
 	}
 }
