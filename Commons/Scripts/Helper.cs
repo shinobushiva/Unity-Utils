@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Helper  {
+public static class Helper  {
 
 	public static Bounds GetBoundingBox(GameObject go){
 		Renderer[] rs = go.GetComponentsInChildren<Renderer> ();
@@ -16,5 +16,13 @@ public class Helper  {
 
 
 		return b;
+	}
+
+	public static void SetLayerRecursively(this GameObject obj, int layer) {
+		obj.layer = layer;
+		
+		foreach (Transform child in obj.transform) {
+			child.gameObject.SetLayerRecursively(layer);
+		}
 	}
 }

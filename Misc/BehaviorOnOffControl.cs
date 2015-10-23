@@ -21,7 +21,7 @@ public class BehaviorOnOffControl : MonoBehaviour {
 	void Start () {
 		targets = new List<Behaviour> ();
 
-//		targets.AddRange (GetComponentsInChildren<MouseLook> ());
+		targets.AddRange (GetComponentsInChildren<MouseLook> ());
 		targets.AddRange (GetComponentsInChildren<FirstPersonController> ());
 		targets.AddRange (GetComponentsInChildren<RigidbodyFirstPersonController> ());
 
