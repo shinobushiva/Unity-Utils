@@ -137,11 +137,11 @@ public class MethodAll : MonoBehaviour
         return RayHit(out b, c);
     }
 
-    public RaycastHit RayHit(out bool b, Camera c)
+    public RaycastHit RayHit(out bool b, Camera c, float maxDistance = 1000f)
     {
         Ray ray = c.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        b = Physics.Raycast(ray, out hit);
+        b = Physics.Raycast(ray, out hit, maxDistance);
 
         return hit;
     }
