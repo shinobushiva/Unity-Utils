@@ -168,36 +168,4 @@ public class MethodAll : MonoBehaviour
         }
 
     }
-
-    public Parent GetParent(GameObject go)
-    {
-        Parent p = go.GetComponent<Parent>();
-        if (p)
-            return p;
-
-        return go.GetComponentInParent<Parent>();
-    }
-
-
-
-    //---------------------------------------------------------------------------------
-
-    /*
-    public bool RayBool(){
-        Ray ray = CameraSwitcher.Instance.currentActive.c.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hit;
-        bool b = Physics.Raycast(ray,out hit);
-        return b;
-    }
-    */
-
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------
-    
-    
-    
-    
-
-
-    //-----------------------------------------------------------------------------------------------------------------------------------------
 }
