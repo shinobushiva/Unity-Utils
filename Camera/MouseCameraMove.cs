@@ -26,6 +26,10 @@ public class MouseCameraMove : MonoBehaviour {
 			return;
 		}
 
+		if (!switchCamera.isMain)
+			return;
+
+
 		if(Input.GetMouseButtonDown(0)){
 			mPos = Input.mousePosition;
 //			damping = follow.rotationDamping;

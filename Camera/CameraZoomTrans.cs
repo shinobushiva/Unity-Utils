@@ -40,6 +40,9 @@ public class CameraZoomTrans : MonoBehaviour
 		if(!SystemWide.Instance.CanCameraGetMouseInput())
 			return;
 
+		if (!switchCamera.isMain)
+			return;
+
 		if(Input.GetMouseButtonDown(0)){
 			mouseDown = true;
 			preMousePos = Input.mousePosition;
