@@ -22,7 +22,7 @@ public class BehaviorOnOffControl : MonoBehaviour {
 		targets = new List<Behaviour> ();
 
 		//MouseLook is no longer a behaviour
-//		targets.AddRange (GetComponentsInChildren<MouseLook> ());
+		targets.AddRange (GetComponentsInChildren<MouseLook> ());
 
 		targets.AddRange (GetComponentsInChildren<FirstPersonController> ());
 		targets.AddRange (GetComponentsInChildren<RigidbodyFirstPersonController> ());
