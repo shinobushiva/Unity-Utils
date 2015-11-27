@@ -3,7 +3,14 @@ using System.Collections;
 
 public static class Helper  {
 
-	public static Bounds GetBoundingBox(GameObject go){
+	public static Bounds GetBoundingBox(GameObject go, bool rotationVariant = false){
+
+//		Quaternion rot;
+//		if (rotationVariant) {
+//			rot = go.transform.rotation;
+//			go.transform.rotation = Quaternion.identity;
+//		}
+
 		Renderer[] rs = go.GetComponentsInChildren<Renderer> ();
 		if (rs.Length <= 0) {
 			return new Bounds();
@@ -13,6 +20,10 @@ public static class Helper  {
 		for(int i=1; i<rs.Length;i++){
 			b.Encapsulate(rs[i].bounds);
 		}
+
+//		if (rotationVariant) {
+//			go.transform.rotation = rot;
+//		}
 
 
 		return b;

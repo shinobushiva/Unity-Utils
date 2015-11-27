@@ -28,6 +28,16 @@ public class ModelImportHelper : Editor {
 
 	}
 
+	[MenuItem("Custom/Navmesh/Set Not Walkable")]
+	public static void SetNotWalkable(){
+		GameObject selected = Selection.activeGameObject;
+//		MeshFilter[] mfs = selected.GetComponentsInChildren<MeshFilter> ();
+//		foreach (MeshFilter mf in mfs) {
+//			if(!mf.gameObject.GetComponent<Collider>())
+//				mf.gameObject.AddComponent<MeshCollider>();
+//		}
+	}
+
 	[MenuItem("Custom/Add Mesh Collider")]
 	public static void AddMeshCollider(){
 		GameObject selected = Selection.activeGameObject;
@@ -36,6 +46,41 @@ public class ModelImportHelper : Editor {
 			if(!mf.gameObject.GetComponent<Collider>())
 				mf.gameObject.AddComponent<MeshCollider>();
 		}
+	}
+
+	[MenuItem("Custom/Create Bounding Cube")]
+	public static void CreateBoundingCube(){
+		GameObject selected = Selection.activeGameObject;
+		Bounds b1 = Helper.GetBoundingBox (selected);
+		Quaternion rot = selected.transform.rotation;
+		selected.transform.rotation = Quaternion.identity;
+		Bounds b = Helper.GetBoundingBox (selected);
+		selected.transform.rotation = rot;
+
+		GameObject cube = GameObject.CreatePrimitive (PrimitiveType.Cube);
+		cube.transform.localScale = b.extents*2;
+		cube.transform.position = b1.center;
+		cube.transform.rotation = rot;
+		cube.name = selected.name+"_BBox";
+
+		Material m = null;
+
+		string[] ass = AssetDatabase.FindAssets ("Wireframe");
+		foreach (string a in ass) {
+			Debug.Log(a);
+			string path = AssetDatabase.GUIDToAssetPath(a);
+			Debug.Log (path);
+			if(path.EndsWith(".mat")){
+				m = AssetDatabase.LoadAssetAtPath<Material>(path);
+				break;
+			}
+		}
+		cube.GetComponent<Renderer> ().sharedMaterial = m;
+		if (selected.transform.parent != null) {
+			cube.transform.SetParent(selected.transform.parent, true);
+		}
+
+
 	}
 
 	[MenuItem("Custom/Remove Collider")]

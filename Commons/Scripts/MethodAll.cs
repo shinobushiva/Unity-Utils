@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Linq;
+using System.Collections.Generic;
 
 public class MethodAll : MonoBehaviour
 {
@@ -145,6 +147,29 @@ public class MethodAll : MonoBehaviour
 
         return hit;
     }
+
+	public RaycastHit RayHit(out bool b, Camera c, LayerMask mask, GameObject[] ignore,  float maxDistance = 1000f)
+	{
+//		print (mask);
+		if (ignore == null) {
+			return RayHit(out b, c, maxDistance);
+		}
+
+		Ray ray = c.ScreenPointToRay(Input.mousePosition);
+		RaycastHit[] hits = Physics.RaycastAll(ray, maxDistance).OrderBy(h=>h.distance).ToArray();
+
+		foreach (RaycastHit hit in hits) {
+			if(!ignore.Contains(hit.transform.gameObject)){
+				b = true;
+				return hit;
+			}
+		}
+
+		RaycastHit hh = new RaycastHit();
+		b = false;
+
+		return hh;
+	}
 
     [RPC]
     public void SetCollider(GameObject go, bool onOff)
