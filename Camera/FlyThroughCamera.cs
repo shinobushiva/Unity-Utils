@@ -18,7 +18,7 @@ public class FlyThroughCamera : MonoBehaviour
 
 		float v = Input.GetAxis ("Vertical");
 		float h = Input.GetAxis ("Horizontal");
-		float a = Input.GetAxis ("Amplitude");
+		float a = Input.GetAxis ("Altitude");
 
 		//print ("" + v + "," + h);
 
