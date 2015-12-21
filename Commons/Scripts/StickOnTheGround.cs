@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StickOnTheGround : MonoBehaviour {
+public class StickOnTheGround : MonoBehaviour
+{
 
 	public Transform rootTrans;
 	public float rayLength = 1;
@@ -9,7 +10,8 @@ public class StickOnTheGround : MonoBehaviour {
 
 	public Vector3 groundPoint;
 
-	void OnDrawGizmosSelected(){
+	void OnDrawGizmosSelected ()
+	{
 		if (rootTrans == null) {
 			return;
 		}
@@ -18,33 +20,37 @@ public class StickOnTheGround : MonoBehaviour {
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireSphere (groundPoint, 0.5f);
 	}
-	void Reset(){
+
+	void Reset ()
+	{
 		rootTrans = transform;
 	}
 
 	// Use this for initialization
-	void Start () {
+	void Start ()
+	{
 	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 
 		RaycastHit ray;
 		
-		var from = rootTrans.TransformPoint (footOffset) + Vector3.up*rayLength;
-		var dir     = Vector3.down;
+		var from = rootTrans.TransformPoint (footOffset) + Vector3.up * rayLength;
+		var dir = Vector3.down;
 		var length = 2 * rayLength;
 		Debug.DrawLine (from, from + dir * 10, Color.green);
 
-		if (Physics.Raycast(from, dir, out ray, length)) {
+		int layer = rootTrans.gameObject.layer;
+		if (Physics.Raycast (from, dir, out ray, length)) {
 			// レイが当たった場所を踵の場所にする
 			groundPoint = ray.point;
 //			print (ray.transform.gameObject.name);
 
 			rootTrans.position = groundPoint + footOffset;
-
 		}
-	
+
 	}
 }
