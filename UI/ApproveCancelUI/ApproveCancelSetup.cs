@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ApproveCancelSetup : MonoBehaviour {
 
@@ -12,7 +13,8 @@ public class ApproveCancelSetup : MonoBehaviour {
         ApproveCancelUI ui = GetComponent<ApproveCancelUI>();
         ui.Set("スタート画面に戻りますか？", "はい", "いいえ", 
         () => {
-            Application.LoadLevel("Start");
+				SceneManager.LoadScene("Start");
+//            Application.LoadLevel("Start");
         },
         () => {
             gameObject.GetComponent<Canvas>().enabled = false;
