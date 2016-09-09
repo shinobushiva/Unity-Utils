@@ -8,7 +8,7 @@ using System.Linq;
 public class ModelImportHelper : Editor {
 
 	private static string objectNameToAlign = "Plane001";
-	private static string[] objectNamesToDelete = {"g_3dboard","Plane001"};
+//	private static string[] objectNamesToDelete = {"g_3dboard","Plane001"};
 
 	[MenuItem("Custom/Align Models")]
 	public static void AlignModels(){

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class AnimationSelector : MonoBehaviour {
 
-	private Animator animator;
+	public Animator animator;
 
 	
 	public int minActionType = 0;
@@ -20,10 +20,20 @@ public class AnimationSelector : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		animator = GetComponent<Animator> ();
+		if (animator == null) {
+			animator = GetComponent<Animator> ();
+		}
+//		if (animator == null) {
+//			Debug.Log ("ERROR: No animator found!");
+//			Destroy (this);
+//		}
 
 		StartCoroutine (Routine ());
 		StartCoroutine (Routine2 ());
+	}
+
+	public void OnModelChanged(Animator anim){
+		animator = anim;
 	}
 	
 	// Update is called once per frame
@@ -36,7 +46,8 @@ public class AnimationSelector : MonoBehaviour {
 
 			if(type != actionType){
 				actionType = type;
-				animator.SetInteger ("ActionType", actionType);
+				if(animator)
+					animator.SetInteger ("ActionType", actionType);
 			}
 			
 			yield return new WaitForSeconds (Random.Range (minTimeChangeAction, maxTimeChangeAction));
@@ -53,7 +64,8 @@ public class AnimationSelector : MonoBehaviour {
 			int type = Random.Range (minSitType, maxSitType);
 			if(type != sitType){
 				sitType = type;
-				animator.SetInteger ("SitType", sitType);
+				if(animator)
+					animator.SetInteger ("SitType", sitType);
 			}
 			
 			yield return new WaitForSeconds (Random.Range (minTimeChangeAction, maxTimeChangeAction));
