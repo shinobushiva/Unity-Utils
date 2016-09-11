@@ -5,6 +5,7 @@ using System.IO;
 public static class Helper
 {
 
+
 	public static Bounds GetBoundingBox (GameObject go, bool rotationVariant = false)
 	{
 
