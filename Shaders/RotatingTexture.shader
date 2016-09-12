@@ -7,6 +7,7 @@
         _TransY ("Trans Y", float) = 0
         _Scale ("Scale", float) = 1
         _Rotation ("Rotation", float) = 0
+        _RotationOffset("Rotation Offset", float) = 0
     }
     SubShader
     {
@@ -27,7 +28,7 @@
             };
 
             float4x4 _TextureRotation;
-            float _Rotation, _TransX, _TransY, _Scale;
+            float _Rotation, _RotationOffset, _TransX, _TransY, _Scale;
 
             v2f vert (float4 pos : POSITION, float2 uv : TEXCOORD0)
             {
@@ -40,7 +41,7 @@
 											 		0,	_Scale,0,	0,
 								  					0,	0,	_Scale, 0,
 								  					0,	0,	0,	    1);
-            	float angleZ = radians(_Rotation);
+            	float angleZ = radians(_Rotation+_RotationOffset);
 				float c = cos(angleZ);
 				float s = sin(angleZ);
 				float4x4 rotateZMatrix	= float4x4(	c,	-s,	0,	0,
