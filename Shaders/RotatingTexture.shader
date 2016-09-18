@@ -32,6 +32,13 @@
 
             v2f vert (float4 pos : POSITION, float2 uv : TEXCOORD0)
             {
+            	float sinF = sin(radians(_Rotation));
+				float cosF = cos(radians(_Rotation));
+				float tx = _TransX;
+				float ty = _TransY;
+				_TransX = (cosF * tx) - (sinF * ty);
+				_TransY = (sinF * tx) + (cosF * ty);
+
             	float4x4 translateMatrix = float4x4(1,	0,	0,	_TransX,
 											 		0,	1,	0,	_TransY,
 									  				0,	0,	1,	0,
