@@ -65,7 +65,7 @@ Shader "Standard Double-Sided"
 			#pragma target 3.0
 			// TEMPORARY: GLES2.0 temporarily disabled to prevent errors spam on devices without textureCubeLodEXT
 			#pragma exclude_renderers gles
-			
+
 			// -------------------------------------
 					
 			#pragma shader_feature _NORMALMAP

@@ -1,13 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using UnityStandardAssets.Characters.FirstPerson;
 using UnityEngine.UI;
 using Shiva.UI;
+using System;
 
 public class BehaviorOnOffControl : MonoBehaviour {
 
-	private List<Behaviour> targets;
+	private List<Component> targets;
 
 	private InputModeIcon inputMode;
 
@@ -19,13 +19,14 @@ public class BehaviorOnOffControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		targets = new List<Behaviour> ();
+		targets = new List<Component> ();
 
 		//MouseLook is no longer a behaviour
 		targets.AddRange (GetComponentsInChildren<MouseLookBehaviour> ());
 
-		targets.AddRange (GetComponentsInChildren<FirstPersonController> ());
-		targets.AddRange (GetComponentsInChildren<RigidbodyFirstPersonController> ());
+
+		targets.AddRange (GetComponentsInChildren (Type.GetType("UnityStandardAssets.Characters.FirstPerson.FirstPersonController")));
+		targets.AddRange (GetComponentsInChildren(Type.GetType("UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController")));
 
 		Cursor.visible = false;
 	}
@@ -39,8 +40,9 @@ public class BehaviorOnOffControl : MonoBehaviour {
 		if(b != toggle){
 			toggle = b;
 
-			foreach (Behaviour ml in targets) {
-				ml.enabled = toggle;
+			foreach (Component ml in targets) {
+				
+				((Behaviour)ml).enabled = toggle;
 			}
 
 			if (toggle) {
