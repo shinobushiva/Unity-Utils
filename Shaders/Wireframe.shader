@@ -1,76 +1,67 @@
-﻿
-Shader "Custom/Grid" {
-     
-    Properties {
-      _GridThickness ("Grid Thickness", Float) = 0.01
-      _GridSpacing ("Grid Spacing", Float) = 10.0
-      _GridColour ("Grid Colour", Color) = (0.5, 1.0, 1.0, 1.0)
-      _BaseColour ("Base Colour", Color) = (0.0, 0.0, 0.0, 0.0)
+﻿Shader "Custom/WireFrame"
+{
+    Properties
+    {
+	    _LineColor ("Line Color", Color) = (1,1,1,1)
+	    _GridColor ("Grid Color", Color) = (1,1,1,0)
+	    _LineWidth ("Line Width", float) = 0.01
     }
-     
-    SubShader {
-      Tags { "Queue" = "Transparent" }
-     
-      Pass {
-        ZWrite Off
-        Blend SrcAlpha OneMinusSrcAlpha
-        Cull Off
-        Lighting Off
-     
-        CGPROGRAM
-     
-        // Define the vertex and fragment shader functions
-        #pragma vertex vert
-        #pragma fragment frag
-        #include "UnityCG.cginc"
-     
-        // Access Shaderlab properties
-        uniform float _GridThickness;
-        uniform float _GridSpacing;
-        uniform float4 _GridColour;
-        uniform float4 _BaseColour;
-        
-     
-        // Input into the vertex shader
-        struct vertexInput {
-            float4 pos : POSITION;
-          	float4 texcoord : TEXCOORD0;
-        };
- 
-        // Output from vertex shader into fragment shader
-        struct vertexOutput {
-          float4 pos : SV_POSITION;
-          float4 texcoord : TEXCOORD0;
-        };
-     
-        // VERTEX SHADER
-        vertexOutput vert(vertexInput input) {
-          vertexOutput output;
-          output.pos = mul(UNITY_MATRIX_MVP, input.pos);
-          
-          // Calculate the world position coordinates to pass to the fragment shader
-          output.texcoord =  input.texcoord; //mul(_Object2World, input.pos);
-          return output;
-        }
- 
-        // FRAGMENT SHADER
-        float4 frag(vertexOutput output) : COLOR {
-//          if (frac(output.pos.x/_GridSpacing) < _GridThickness 
-//          || frac(output.pos.y/_GridSpacing) < _GridThickness
-//          || frac(output.pos.z/_GridSpacing) < _GridThickness) {
-
-				if(frac(output.texcoord.x*100/_GridSpacing) < _GridThickness
-					||frac(output.texcoord.y*100/_GridSpacing) < _GridThickness){
-            return _GridColour;
-          }
-          else {
-            return _BaseColour;
-          }
-			
-        }
-    ENDCG
+    SubShader
+    {
+	    Pass
+	    {
+		    Cull off
+		    Tags { "RenderType" = "Transparent" }
+		    Blend SrcAlpha OneMinusSrcAlpha
+		    AlphaTest Greater 0.5
+		     
+		    CGPROGRAM
+		    #pragma vertex vert
+		    #pragma fragment frag
+		     
+		    uniform float4 _LineColor;
+		    uniform float4 _GridColor;
+		    uniform float _LineWidth;
+	     
+		    // vertex input: position, uv1, uv2
+		    struct appdata
+		    {
+			    float4 vertex : POSITION;
+			    float4 texcoord1 : TEXCOORD0;
+			    float4 color : COLOR;
+		    };
+		     
+		    struct v2f
+		    {
+			    float4 pos : POSITION;
+			    float4 texcoord1 : TEXCOORD0;
+			    float4 color : COLOR;
+		    };
+		     
+		    v2f vert (appdata v)
+		    {
+			    v2f o;
+			    o.pos = mul( UNITY_MATRIX_MVP, v.vertex);
+			    o.texcoord1 = v.texcoord1;
+			    o.color = v.color;
+			    return o;
+		    }
+		     
+		    fixed4 frag(v2f i) : COLOR
+		    {
+			    fixed4 answer;
+			     
+			    float lx = step(_LineWidth, i.texcoord1.x);
+			    float ly = step(_LineWidth, i.texcoord1.y);
+			    float hx = step(i.texcoord1.x, 1 - _LineWidth);
+			    float hy = step(i.texcoord1.y, 1 - _LineWidth);
+			     
+			    answer = lerp(_LineColor, _GridColor, lx*ly*hx*hy);
+			     
+			    return answer;
+		    }
+		    ENDCG
+	    }
     }
-  }
-  
-  FallBack "VertexLit"
+    Fallback "Vertex Colored", 1
 }

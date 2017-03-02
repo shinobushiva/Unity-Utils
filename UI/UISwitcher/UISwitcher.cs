@@ -15,8 +15,11 @@ public class UISwitcher : MonoBehaviour {
 	void Update () {
 
 		if(Input.GetKey(KeyCode.LeftAlt) && Input.GetKeyDown(KeyCode.P)){
-			foreach(GameObject target in targets)
-				target.SetActive(!target.activeSelf);
+			foreach (GameObject target in targets) {
+				if (target != null) {
+					target.SetActive (!target.activeSelf);
+				}
+			}
 		}
 	
 	}

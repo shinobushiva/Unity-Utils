@@ -13,7 +13,7 @@ public class SyncMove : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		transform.position = target.position+offset;
 		transform.rotation = target.rotation;
 		Quaternion q = transform.rotation;
