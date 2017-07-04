@@ -11,6 +11,8 @@ public class BehaviorOnOffControl : MonoBehaviour {
 
 	private InputModeIcon inputMode;
 
+	public MonoBehaviour[] behaviours;
+
 	void Awake(){
 		inputMode = GameObject.FindObjectOfType<InputModeIcon> ();
 		if (inputMode)
@@ -25,8 +27,9 @@ public class BehaviorOnOffControl : MonoBehaviour {
 		targets.AddRange (GetComponentsInChildren<MouseLookBehaviour> ());
 
 
-		targets.AddRange (GetComponentsInChildren (Type.GetType("UnityStandardAssets.Characters.FirstPerson.FirstPersonController")));
-		targets.AddRange (GetComponentsInChildren(Type.GetType("UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController")));
+		targets.AddRange (behaviours);
+//		targets.AddRange (GetComponentsInChildren (Type.GetType("UnityStandardAssets.Characters.FirstPerson.FirstPersonController")));
+//		targets.AddRange (GetComponentsInChildren(Type.GetType("UnityStandardAssets.Characters.FirstPerson.RigidbodyFirstPersonController")));
 
 		Cursor.visible = false;
 	}

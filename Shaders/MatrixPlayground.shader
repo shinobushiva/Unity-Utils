@@ -1,4 +1,6 @@
-﻿// Matrix PlayGround Shader - UnityCoder.com
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+// Matrix PlayGround Shader - UnityCoder.com
 // References:
 // Matrices http://www.codinglabs.net/article_world_view_projection_matrix.aspx
 // Rotation: http://www.gamedev.net/topic/610115-solved-rotation-deforming-mesh-opengl-es-20/#entry4859756
@@ -99,7 +101,7 @@ Shader "UnityCoder/MatrixPlayground"
   				float4 localScaledTranslatedRotXY = mul(localScaledTranslatedRotX,rotateYMatrix);
   				float4 localScaledTranslatedRotXYZ = mul(localScaledTranslatedRotXY,rotateZMatrix);
 
-				o.vertex = mul(UNITY_MATRIX_MVP, localScaledTranslatedRotXYZ);
+				o.vertex = UnityObjectToClipPos(localScaledTranslatedRotXYZ);
 
 				o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 				return o;

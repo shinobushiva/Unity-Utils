@@ -9,16 +9,21 @@ public class NetworkPosition : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+
+		#if !UNITY_WEBGL
 		if (!Network.isServer && !Network.isClient) {
 			Destroy(this);
 			Destroy(GetComponent<NetworkView>());
 		}
+		#endif
 
 		myPosition = gameObject.transform.position;
 		myRotate = gameObject.transform.rotation;
 		myScale = gameObject.transform.localScale;
 	}
-	
+
+
+	#if !UNITY_WEBGL
 	[RPC]
 	void PositionChange(Vector3 posi){
 		gameObject.transform.position = posi;
@@ -34,9 +39,13 @@ public class NetworkPosition : MonoBehaviour {
 		gameObject.transform.localScale = Scale;
 		myScale = Scale;
 	}
+	#endif
+
 	// Update is called once per frame
 	void Update () {
 
+
+		#if !UNITY_WEBGL
             //最初に自分の場所を記憶しておいてネットワークビュウが自分のものでなくかつ動いていたら自分以外の共有先を同期する
             if (myPosition != gameObject.transform.position)
             { 
@@ -56,6 +65,7 @@ public class NetworkPosition : MonoBehaviour {
 			
                 GetComponent<NetworkView>().RPC("ScaleChange", RPCMode.Others, myScale);
             }
+		#endif
 
     }
 }

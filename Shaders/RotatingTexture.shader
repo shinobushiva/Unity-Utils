@@ -1,4 +1,6 @@
-﻿Shader "Custom/RotatingTexture"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/RotatingTexture"
 {
     Properties
     {
@@ -63,7 +65,7 @@
 				_TextureRotation = localScaledTranslatedRotZ;
 				 
                 v2f o;
-                o.pos = mul(UNITY_MATRIX_MVP, pos);
+                o.pos = UnityObjectToClipPos(pos);
                 o.uv = mul(_TextureRotation, float4(uv,0,1)).xy;
                 return o;
             }
