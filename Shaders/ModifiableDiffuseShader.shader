@@ -1,4 +1,6 @@
-﻿Shader "Custom/Modifiable Diffuse Shader"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/Modifiable Diffuse Shader"
 {
     Properties
     {
@@ -80,7 +82,7 @@
 //                o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = v.texcoord;
 
-                o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+                o.pos = UnityObjectToClipPos(v.vertex);
 //                o.uv = mul(_TextureRotation, float4(v.texcoord,0,1)).xy;
                 o.uv = mul(_TextureRotation, v.texcoord).xy;
 
