@@ -171,6 +171,7 @@ public class MethodAll : MonoBehaviour
 		return hh;
 	}
 
+	#if !UNITY_WEBGL
     [RPC]
     public void SetCollider(GameObject go, bool onOff)
     {
@@ -191,6 +192,18 @@ public class MethodAll : MonoBehaviour
                 nv.RPC("SetCollider", RPCMode.Others, onOff);
             }
         }
-
     }
+	#else
+	public void SetCollider(GameObject go, bool onOff)
+	{
+		//print (go);
+		Collider[] cs = go.GetComponentsInChildren<Collider>();
+		//print (""+cs.Length+","+onOff);
+
+		foreach (Collider c in cs)
+		{
+			c.enabled = onOff;
+		}
+	}
+	#endif
 }

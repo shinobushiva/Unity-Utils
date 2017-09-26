@@ -7,18 +7,29 @@ public class ApproveCancelSetup : MonoBehaviour {
 
     public Toggle toggle;
 
+	public string sceneToBack = "Start";
+	public bool doQuit = false;
+
 	// Use this for initialization
 	void Start () {
 
         ApproveCancelUI ui = GetComponent<ApproveCancelUI>();
-        ui.Set("スタート画面に戻りますか？", "はい", "いいえ", 
+
+		string text = "スタート画面に戻りますか？";
+		if (doQuit) {
+			text = "終了しますか？";
+		}
+        ui.Set(text, "はい", "いいえ", 
         () => {
-				SceneManager.LoadScene("Start");
-//            Application.LoadLevel("Start");
+				if (doQuit) {
+					Application.Quit();
+				}else{
+					SceneManager.LoadScene(sceneToBack);
+				}
         },
         () => {
-            gameObject.GetComponent<Canvas>().enabled = false;
-            gameObject.SetActive(false);
+			gameObject.GetComponentInChildren<Canvas>().enabled = false;
+			gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
             toggle.isOn = false;
         });
 	

@@ -5,7 +5,6 @@ public class AnimationSelector : MonoBehaviour {
 
 	public Animator animator;
 
-	
 	public int minActionType = 0;
 	public int minSitType = 0;
 
