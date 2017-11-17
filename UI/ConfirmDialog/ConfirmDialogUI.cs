@@ -55,6 +55,7 @@ public class ConfirmDialogUI : MonoBehaviour
 	void Start ()
 	{
 		Setup ();
+		dialog.SetActive (false);
 	}
 		
 	// Update is called once per frame

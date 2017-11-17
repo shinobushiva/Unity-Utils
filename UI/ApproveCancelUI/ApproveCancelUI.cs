@@ -31,4 +31,5 @@ public class ApproveCancelUI : MonoBehaviour {
         cancelButton.GetComponentInChildren<Text>().text = cancel;
 
     }
+
 }
