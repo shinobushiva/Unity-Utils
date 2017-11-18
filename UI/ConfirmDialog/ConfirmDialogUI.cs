@@ -37,17 +37,22 @@ public class ConfirmDialogUI : MonoBehaviour
 	{
 		if (approveButtonText != null)
 			return;
+		
+		approveButton.onClick.RemoveAllListeners();
+		cancelButton.onClick.RemoveAllListeners ();
 
 		approveButtonText = approveButton.GetComponentsInChildren<Text> (true) [0];
 		cancelButtonText = cancelButton.GetComponentsInChildren<Text> (true) [0];
 			
 		approveButton.onClick.AddListener (() => {
-			action (true);
+
 			dialog.SetActive (false);
+			action (true);
 		});
 		cancelButton.onClick.AddListener (() => {
-			action (false);
+
 			dialog.SetActive (false);
+			action (false);
 		});
 	}
 
@@ -58,9 +63,4 @@ public class ConfirmDialogUI : MonoBehaviour
 		dialog.SetActive (false);
 	}
 		
-	// Update is called once per frame
-	void Update ()
-	{
-		
-	}
 }
