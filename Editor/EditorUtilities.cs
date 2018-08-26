@@ -16,7 +16,19 @@ public class EditorUtilities : Editor {
 		}
 	}
 
-	[MenuItem("Custom/Utilities/Create Bounding Cube")]
+    [MenuItem("Custom/Utilities/Add Rect Collider")]
+    public static void AddRectCollider()
+    {
+        GameObject selected = Selection.activeGameObject;
+        MeshFilter[] mfs = selected.GetComponentsInChildren<MeshFilter>();
+        foreach (MeshFilter mf in mfs)
+        {
+            if (!mf.gameObject.GetComponent<Collider>())
+                mf.gameObject.AddComponent<BoxCollider>();
+        }
+    }
+
+    [MenuItem("Custom/Utilities/Create Bounding Cube")]
 	public static void CreateBoundingCube(){
 		GameObject selected = Selection.activeGameObject;
 		Bounds b1 = Helper.GetBoundingBox (selected);
