@@ -30,7 +30,8 @@ public class ApproveCancelSetup : MonoBehaviour {
         () => {
 			gameObject.GetComponentInChildren<Canvas>().enabled = false;
 			gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
-            toggle.isOn = false;
+            if(toggle)
+                toggle.isOn = false;
         });
 	
 	}
